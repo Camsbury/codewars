@@ -45,7 +45,7 @@ int min(int a, int b)
 char** movingShift(char* strng, int shift) {
     int length = 0;
     int copyLen = strlen(strng);
-    char *strng2 = malloc(sizeof(char) * (copyLen + 1));
+    char *strng2 = calloc((copyLen + 1), sizeof(char));
     strng2 = strncpy(strng2, strng, copyLen);
     strng2[copyLen] = '\0';
     for (int i = 0; strng2[i] != '\0'; ++i) {
@@ -58,10 +58,10 @@ char** movingShift(char* strng, int shift) {
     for (int i = 0; i != 5; ++i) {
         lengths[i] = min(max(0, length - i * partLength), partLength);
     }
-    char **strngs = malloc(sizeof(char*) * 5);
+    char **strngs = calloc(5, sizeof(char*));
     int sourceIndex = 0;
     for (int i = 0; i != 5; ++i) {
-        strngs[i]= malloc(sizeof(char)*(lengths[i] + 1));
+        strngs[i]= calloc((lengths[i] + 1), sizeof(char));
         memcpy(strngs[i], &strng2[sourceIndex], lengths[i]);
         sourceIndex += lengths[i];
         strngs[i][lengths[i]] = '\0';
@@ -76,7 +76,7 @@ char* demovingShift(char** s, int shift) {
     for (int i = 0; i != 5; ++i) {
         copyLen += strlen(s[i]) + 1;
     }
-    char *res = malloc(sizeof(char) * copyLen);
+    char *res = calloc(copyLen, sizeof(char));
     res[0] = '\0';
     int resLen = 0;
     for (int i = 0; i != 5; ++i) {
@@ -100,7 +100,7 @@ int main (int argc, char *argv[])
     int shift = strtol(argv[1], NULL, 10);
 
     int copyLen = strlen(argv[2]);
-    char *entry = malloc(sizeof(char) * (copyLen + 1));
+    char *entry = calloc((copyLen + 1), sizeof(char));
     strncpy(entry, argv[2], strlen(argv[2]));
     entry[copyLen] = '\0';
     char **results = movingShift(entry, shift);
